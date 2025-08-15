@@ -8,13 +8,17 @@
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
   <script>
     (function(){
-      emailjs.init("XtxW3-9y120dx_HQu");
+      emailjs.init("XtxW3-9y120dx_HQ"); // Sem vlož svoj Public Key z EmailJS
     })();
+
     function sendEmail(e) {
       e.preventDefault();
       emailjs.sendForm('service_aso65yq', 'template_e2x62ai', e.target)
         .then(() => alert('Rezervácia odoslaná!'))
-        .catch(() => alert('Chyba pri odosielaní.'));
+        .catch((err) => {
+          console.error('EmailJS Error:', err);
+          alert('Chyba pri odosielaní.');
+        });
     }
   </script>
 </head>
@@ -36,6 +40,14 @@
       <label>Dátum a čas:</label>
       <input type="datetime-local" name="date" required>
 
+      <label>Služba:</label>
+      <select name="service" required>
+        <option value="">-- Vyber službu --</option>
+        <option value="Strih">Strih</option>
+        <option value="Úprava brady">Úprava brady</option>
+        <option value="Strih + brada">Strih + brada</option>
+      </select>
+
       <label>Poznámka:</label>
       <textarea name="message"></textarea>
 
@@ -43,5 +55,4 @@
     </form>
   </section>
 </body>
-
 </html>
