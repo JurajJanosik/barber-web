@@ -1,0 +1,17 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "obsah"
+    label: "Obsah"
+    files:
+      - file: "index.html"
+        label: "Hlavná stránka"
+        name: "homepage"
+        fields:
+          - { label: "Nadpis", name: "title", widget: "string" }
+          - { label: "Podnadpis", name: "subtitle", widget: "string" }

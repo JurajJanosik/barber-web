@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barber Shop</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("TU_DAJ_PUBLIC_KEY_Z_EMAILJS");
+    })();
+    function sendEmail(e) {
+      e.preventDefault();
+      emailjs.sendForm('service_aso65yq', 'template_e2x62ai', e.target)
+        .then(() => alert('Rezervácia odoslaná!'))
+        .catch(() => alert('Chyba pri odosielaní.'));
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>JNO Barber</h1>
+    <p>Profesionálny strih a úprava brady</p>
+  </header>
+
+  <section>
+    <h2>Rezervácia termínu</h2>
+    <form onsubmit="sendEmail(event)">
+      <label>Meno:</label>
+      <input type="text" name="name" required>
+
+      <label>E-mail:</label>
+      <input type="email" name="email" required>
+
+      <label>Dátum a čas:</label>
+      <input type="datetime-local" name="date" required>
+
+      <label>Poznámka:</label>
+      <textarea name="message"></textarea>
+
+      <button type="submit">Odoslať</button>
+    </form>
+  </section>
+</body>
+</html>
