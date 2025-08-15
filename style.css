@@ -1,31 +1,151 @@
+/* ---- Google Font Import ---- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap');
+
+/* ---- Základné nastavenia ---- */
 body {
-  font-family: Arial, sans-serif;
-  max-width: 800px;
-  margin: auto;
-  padding: 20px;
-  background: #f4f4f4;
+    font-family: 'Montserrat', sans-serif; /* Moderný a čistý font */
+    background-color: #121212; /* Tmavé pozadie */
+    color: #f0f0f0; /* Svetlé písmo */
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box; /* Zabezpečí lepšie správanie paddingu */
 }
+
+/* ---- Kontajner pre celý obsah ---- */
+.container {
+    max-width: 500px;
+    width: 100%;
+}
+
+/* ---- Hlavička ---- */
 header {
-  text-align: center;
-  margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 40px;
 }
+
+header h1 {
+    font-family: 'Playfair Display', serif; /* Elegantný font pre nadpis */
+    color: #d4af37; /* Zlatá farba */
+    font-size: 3rem; /* Väčšie písmo */
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Tieň pre 3D efekt */
+    transition: font-size 0.3s ease; /* Plynulá zmena veľkosti */
+}
+
+header p {
+    font-size: 1rem;
+    color: #a0a0a0; /* Sivá farba pre podnadpis */
+}
+
+/* ---- Sekcia s formulárom ---- */
+section {
+    background: #1e1e1e; /* Tmavosivý podklad pre formulár */
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #333;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Výraznejší tieň */
+    transition: padding 0.3s ease; /* Plynulá zmena odsadenia */
+}
+
+section h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: #e0e0e0;
+}
+
+/* ---- Štýly pre formulár ---- */
 form {
-  background: white;
-  padding: 15px;
-  border-radius: 5px;
-  
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Medzery medzi prvkami formulára */
 }
-input, textarea, button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 8px;
+
+label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #c0c0c0;
 }
+
+input[type="text"],
+input[type="email"],
+input[type="datetime-local"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #2c2c2c; /* Tmavší podklad pre inputy */
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: #f0f0f0; /* Svetlé písmo v inputoch */
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    box-sizing: border-box; /* Zabezpečí, že padding neovplyvní šírku */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Zmena štýlu pri kliknutí na políčko */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="datetime-local"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #d4af37; /* Zlatý okraj pri označení */
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+/* Špeciálny štýl pre kalendár, aby bol viditeľný na tmavom pozadí */
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical; /* Umožní meniť výšku textového poľa */
+}
+
+/* ---- Tlačidlo ---- */
 button {
-  background: rgb(99, 6, 248);
-  color: white;
-  border: none;
-  cursor: pointer;
+    padding: 15px;
+    margin-top: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase; /* Veľké písmená */
+    color: #121212; /* Tmavé písmo na tlačidle */
+    background-color: #d4af37; /* Zlaté pozadie */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; /* Plynulý prechod */
 }
+
+/* Efekt pri prejdení myšou ponad tlačidlo */
 button:hover {
-  background: #170679;
+    background-color: #e6c565; /* Svetlejšia zlatá */
+    transform: translateY(-2px); /* Jemný posun nahor */
+}
+
+/* ------------------------------------------- */
+/* ---- Responzivita pre mobilné zariadenia ---- */
+/* ------------------------------------------- */
+
+/* Pravidlá pre obrazovky so šírkou 600px a menšou */
+@media (max-width: 600px) {
+    body {
+        padding: 15px; /* Menšie okraje na mobile */
+    }
+
+    header h1 {
+        font-size: 2.5rem; /* Mierne menší hlavný nadpis */
+    }
+
+    section {
+        padding: 20px; /* Menšie odsadenie vo vnútri formulára */
+    }
 }
