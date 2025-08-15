@@ -191,6 +191,6 @@ button:hover {
 
     section::before,
     section::after {
-        width: 10px; /* Trochu užšie pruhy na mobile */
+        width: 10px; 
     }
 }
