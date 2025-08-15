@@ -1,74 +1,119 @@
 /* ---- Google Font Import ---- */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&display=swap');
+
+/* ---- CSS Premenné pre ľahšiu úpravu farieb ---- */
+:root {
+    --color-background: #111827; /* Tmavomodré pozadie */
+    --color-surface: #1F2937;   /* Farba formulára */
+    --color-border: #4B5563;   /* Farba okrajov */
+    --color-text-primary: #F9FAFB; /* Biela */
+    --color-text-secondary: #9CA3AF; /* Sivá */
+    --color-accent-red: #EF4444;
+    --color-accent-blue: #3B82F6;
+    --font-primary: 'Montserrat', sans-serif;
+}
 
 /* ---- Základné nastavenia ---- */
 body {
-    font-family: 'Montserrat', sans-serif; /* Moderný a čistý font */
-    background-color: #121212; /* Tmavé pozadie */
-    color: #f0f0f0; /* Svetlé písmo */
+    font-family: var(--font-primary);
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
     margin: 0;
-    padding: 20px;
+    padding: 40px 20px;
     display: flex;
+    flex-direction: column; /* Toto je kľúčová oprava: Vždy skladá prvky pod seba */
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    box-sizing: border-box; /* Zabezpečí lepšie správanie paddingu */
-}
-
-/* ---- Kontajner pre celý obsah ---- */
-.container {
-    max-width: 500px;
-    width: 100%;
+    box-sizing: border-box;
 }
 
 /* ---- Hlavička ---- */
 header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
+    max-width: 550px;
 }
 
 header h1 {
-    font-family: 'Playfair Display', serif; /* Elegantný font pre nadpis */
-    color: #d4af37; /* Zlatá farba */
-    font-size: 3rem; /* Väčšie písmo */
-    margin: 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Tieň pre 3D efekt */
-    transition: font-size 0.3s ease; /* Plynulá zmena veľkosti */
+    font-weight: 900; /* Extra tučné písmo */
+    font-size: 3rem;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    margin: 0 0 10px 0;
+    letter-spacing: 2px;
 }
 
 header p {
     font-size: 1rem;
-    color: #a0a0a0; /* Sivá farba pre podnadpis */
+    color: var(--color-text-secondary);
+    margin: 0;
 }
 
 /* ---- Sekcia s formulárom ---- */
 section {
-    background: #1e1e1e; /* Tmavosivý podklad pre formulár */
-    padding: 30px;
+    background: var(--color-surface);
+    padding: 35px;
     border-radius: 12px;
-    border: 1px solid #333;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); /* Výraznejší tieň */
-    transition: padding 0.3s ease; /* Plynulá zmena odsadenia */
+    max-width: 550px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative; /* Potrebné pre "barber pole" okraje */
+    overflow: hidden; /* Skryje čo prečnieva cez zaoblené rohy */
+    border: 2px solid var(--color-border);
 }
+
+/* ---- "Barber Pole" okraje (pomocou pseudoelementov) ---- */
+section::before,
+section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 12px; /* Šírka pruhov */
+    height: 100%;
+    background-image: repeating-linear-gradient(
+        -45deg,
+        var(--color-accent-red),
+        var(--color-accent-red) 15px,
+        #ffffff 15px,
+        #ffffff 30px,
+        var(--color-accent-blue) 30px,
+        var(--color-accent-blue) 45px,
+        #ffffff 45px,
+        #ffffff 60px
+    );
+}
+
+section::before {
+    left: 0;
+}
+
+section::after {
+    right: 0;
+}
+
 
 section h2 {
     text-align: center;
+    font-weight: 700;
+    font-size: 1.5rem;
     margin-top: 0;
     margin-bottom: 25px;
-    color: #e0e0e0;
+    color: var(--color-text-primary);
 }
 
 /* ---- Štýly pre formulár ---- */
 form {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Medzery medzi prvkami formulára */
+    gap: 18px; /* O niečo väčšie medzery */
 }
 
 label {
-    font-weight: bold;
+    font-weight: 500;
     font-size: 0.9rem;
-    color: #c0c0c0;
+    color: var(--color-text-secondary);
 }
 
 input[type="text"],
@@ -78,13 +123,13 @@ select,
 textarea {
     width: 100%;
     padding: 12px 15px;
-    background-color: #2c2c2c; /* Tmavší podklad pre inputy */
-    border: 1px solid #444;
+    background-color: #374151; /* Mierne svetlejší input */
+    border: 2px solid var(--color-border);
     border-radius: 8px;
-    color: #f0f0f0; /* Svetlé písmo v inputoch */
-    font-family: 'Montserrat', sans-serif;
+    color: var(--color-text-primary);
+    font-family: var(--font-primary);
     font-size: 1rem;
-    box-sizing: border-box; /* Zabezpečí, že padding neovplyvní šírku */
+    box-sizing: border-box;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
@@ -95,57 +140,57 @@ input[type="datetime-local"]:focus,
 select:focus,
 textarea:focus {
     outline: none;
-    border-color: #d4af37; /* Zlatý okraj pri označení */
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+    border-color: var(--color-accent-blue); /* Modré zvýraznenie */
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
 }
 
-/* Špeciálny štýl pre kalendár, aby bol viditeľný na tmavom pozadí */
 input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     filter: invert(1);
     cursor: pointer;
 }
 
 textarea {
-    min-height: 100px;
-    resize: vertical; /* Umožní meniť výšku textového poľa */
+    min-height: 120px;
+    resize: vertical;
 }
 
 /* ---- Tlačidlo ---- */
 button {
     padding: 15px;
-    margin-top: 15px;
+    margin-top: 10px;
     font-size: 1rem;
-    font-weight: bold;
-    text-transform: uppercase; /* Veľké písmená */
-    color: #121212; /* Tmavé písmo na tlačidle */
-    background-color: #d4af37; /* Zlaté pozadie */
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-background); /* Tmavé písmo */
+    background-color: var(--color-text-primary); /* Biele pozadie */
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s; /* Plynulý prechod */
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 /* Efekt pri prejdení myšou ponad tlačidlo */
 button:hover {
-    background-color: #e6c565; /* Svetlejšia zlatá */
-    transform: translateY(-2px); /* Jemný posun nahor */
+    background-color: #E5E7EB; /* Mierne sivá */
+    transform: translateY(-2px);
 }
 
-/* ------------------------------------------- */
 /* ---- Responzivita pre mobilné zariadenia ---- */
-/* ------------------------------------------- */
-
-/* Pravidlá pre obrazovky so šírkou 600px a menšou */
 @media (max-width: 600px) {
     body {
-        padding: 15px; /* Menšie okraje na mobile */
+        padding: 20px 15px; /* Menšie okraje na mobile */
     }
 
     header h1 {
-        font-size: 2.5rem; /* Mierne menší hlavný nadpis */
+        font-size: 2.2rem; /* Menší nadpis */
     }
 
     section {
-        padding: 20px; /* Menšie odsadenie vo vnútri formulára */
+        padding: 30px;
+    }
+
+    section::before,
+    section::after {
+        width: 10px; /* Trochu užšie pruhy na mobile */
     }
 }
