@@ -8,16 +8,23 @@
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
   <script>
     (function(){
-      emailjs.init("XtxW3-9y120dx_HQ"); // Sem vlož svoj Public Key z EmailJS
+      emailjs.init("XtxW3-9y120dx_HQu"); // ← vlož svoj PUBLIC KEY
     })();
 
     function sendEmail(e) {
       e.preventDefault();
-      emailjs.sendForm('service_aso65yq', 'template_e2x62ai', e.target)
-        .then(() => alert('Rezervácia odoslaná!'))
-        .catch((err) => {
-          console.error('EmailJS Error:', err);
-          alert('Chyba pri odosielaní.');
+
+      console.log("Odosielam formulár do EmailJS...");
+
+      emailjs.sendForm('service_mxhrvpe', 'template_e2x62ai', e.target)
+        .then((response) => {
+          console.log('✅ ÚSPECH:', response.status, response.text);
+          alert('Rezervácia odoslaná!');
+          e.target.reset();
+        })
+        .catch((error) => {
+          console.error('❌ CHYBA:', error);
+          alert('Chyba pri odoslaní: ' + JSON.stringify(error));
         });
     }
   </script>
