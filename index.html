@@ -8,7 +8,7 @@
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
   <script>
     (function(){
-      emailjs.init("XtxW3-9y120dx_HQu"); // ← vlož svoj PUBLIC KEY
+      emailjs.init("VHTC3Udi1-bpbk3Yn"); // ← vlož svoj PUBLIC KEY
     })();
 
     function sendEmail(e) {
@@ -16,7 +16,7 @@
 
       console.log("Odosielam formulár do EmailJS...");
 
-      emailjs.sendForm('service_mxhrvpe', 'template_e2x62ai', e.target)
+      emailjs.sendForm('service_v2rb289', 'template_oedt7p3', e.target)
         .then((response) => {
           console.log('✅ ÚSPECH:', response.status, response.text);
           alert('Rezervácia odoslaná!');
@@ -31,7 +31,7 @@
 </head>
 <body>
   <header>
-    <h1>JNO Barber</h1>
+    <h1> JANO Barber</h1>
     <p>Profesionálny strih a úprava brady</p>
   </header>
 
