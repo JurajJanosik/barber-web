@@ -3,11 +3,16 @@
 
 /* ---- CSS Premenné pre ľahšiu úpravu farieb ---- */
 :root {
-    --color-background: #111827; /* Tmavomodré pozadie */
-    --color-surface: #1F2937;   /* Farba formulára */
-    --color-border: #4B5563;   /* Farba okrajov */
-    --color-text-primary: #F9FAFB; /* Biela */
-    --color-text-secondary: #9CA3AF; /* Sivá */
+    --color-background: #111827;
+    /* Tmavomodré pozadie */
+    --color-surface: #1F2937;
+    /* Farba formulára */
+    --color-border: #4B5563;
+    /* Farba okrajov */
+    --color-text-primary: #F9FAFB;
+    /* Biela */
+    --color-text-secondary: #9CA3AF;
+    /* Sivá */
     --color-accent-red: #EF4444;
     --color-accent-blue: #3B82F6;
     --font-primary: 'Montserrat', sans-serif;
@@ -21,7 +26,8 @@ body {
     margin: 0;
     padding: 40px 20px;
     display: flex;
-    flex-direction: column; /* Toto je kľúčová oprava: Vždy skladá prvky pod seba */
+    flex-direction: column;
+    /* Toto je kľúčová oprava: Vždy skladá prvky pod seba */
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -35,8 +41,26 @@ header {
     max-width: 550px;
 }
 
+.btn-admin {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+.btn-admin:hover {
+    background: #555;
+}
+
+
+
 header h1 {
-    font-weight: 900; /* Extra tučné písmo */
+    font-weight: 900;
+    /* Extra tučné písmo */
     font-size: 3rem;
     text-transform: uppercase;
     color: var(--color-text-primary);
@@ -59,8 +83,10 @@ section {
     width: 100%;
     box-sizing: border-box;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    position: relative; /* Potrebné pre "barber pole" okraje */
-    overflow: hidden; /* Skryje čo prečnieva cez zaoblené rohy */
+    position: relative;
+    /* Potrebné pre "barber pole" okraje */
+    overflow: hidden;
+    /* Skryje čo prečnieva cez zaoblené rohy */
     border: 2px solid var(--color-border);
 }
 
@@ -70,19 +96,18 @@ section::after {
     content: '';
     position: absolute;
     top: 0;
-    width: 12px; /* Šírka pruhov */
+    width: 12px;
+    /* Šírka pruhov */
     height: 100%;
-    background-image: repeating-linear-gradient(
-        -45deg,
-        var(--color-accent-red),
-        var(--color-accent-red) 15px,
-        #ffffff 15px,
-        #ffffff 30px,
-        var(--color-accent-blue) 30px,
-        var(--color-accent-blue) 45px,
-        #ffffff 45px,
-        #ffffff 60px
-    );
+    background-image: repeating-linear-gradient(-45deg,
+            var(--color-accent-red),
+            var(--color-accent-red) 15px,
+            #ffffff 15px,
+            #ffffff 30px,
+            var(--color-accent-blue) 30px,
+            var(--color-accent-blue) 45px,
+            #ffffff 45px,
+            #ffffff 60px);
 }
 
 section::before {
@@ -107,7 +132,8 @@ section h2 {
 form {
     display: flex;
     flex-direction: column;
-    gap: 18px; /* O niečo väčšie medzery */
+    gap: 18px;
+    /* O niečo väčšie medzery */
 }
 
 label {
@@ -123,7 +149,8 @@ select,
 textarea {
     width: 100%;
     padding: 12px 15px;
-    background-color: #374151; /* Mierne svetlejší input */
+    background-color: #374151;
+    /* Mierne svetlejší input */
     border: 2px solid var(--color-border);
     border-radius: 8px;
     color: var(--color-text-primary);
@@ -140,7 +167,8 @@ input[type="datetime-local"]:focus,
 select:focus,
 textarea:focus {
     outline: none;
-    border-color: var(--color-accent-blue); /* Modré zvýraznenie */
+    border-color: var(--color-accent-blue);
+    /* Modré zvýraznenie */
     box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
 }
 
@@ -161,8 +189,10 @@ button {
     font-size: 1rem;
     font-weight: 700;
     text-transform: uppercase;
-    color: var(--color-background); /* Tmavé písmo */
-    background-color: var(--color-text-primary); /* Biele pozadie */
+    color: var(--color-background);
+    /* Tmavé písmo */
+    background-color: var(--color-text-primary);
+    /* Biele pozadie */
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -171,18 +201,21 @@ button {
 
 /* Efekt pri prejdení myšou ponad tlačidlo */
 button:hover {
-    background-color: #E5E7EB; /* Mierne sivá */
+    background-color: #E5E7EB;
+    /* Mierne sivá */
     transform: translateY(-2px);
 }
 
 /* ---- Responzivita pre mobilné zariadenia ---- */
 @media (max-width: 600px) {
     body {
-        padding: 20px 15px; /* Menšie okraje na mobile */
+        padding: 20px 15px;
+        /* Menšie okraje na mobile */
     }
 
     header h1 {
-        font-size: 2.2rem; /* Menší nadpis */
+        font-size: 2.2rem;
+        /* Menší nadpis */
     }
 
     section {
@@ -191,6 +224,6 @@ button:hover {
 
     section::before,
     section::after {
-        width: 10px; 
+        width: 10px;
     }
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="sk">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,20 +8,29 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
   <script>
-    (function(){
-      emailjs.init("VHTC3Udi1-bpbk3Yn"); // ← vlož svoj PUBLIC KEY
+    (function () {
+      emailjs.init("VHTC3Udi1-bpbk3Yn"); // ← Váš PUBLIC KEY
     })();
 
     function sendEmail(e) {
       e.preventDefault();
 
+      // ZMENA: Pridaná kontrola, či je vybraný časový slot
+      if (!document.getElementById('vybraty-cas').value) {
+        alert('Prosím, vyberte si čas rezervácie.');
+        return; // Zastaví odoslanie, ak nie je vybraný čas
+      }
+
       console.log("Odosielam formulár do EmailJS...");
 
+      // VÁŠ PÔVODNÝ KÓD PRE EMAILJS ZOSTÁVA NEDOTKNUTÝ
       emailjs.sendForm('service_v2rb289', 'template_qjf44nk', e.target)
         .then((response) => {
           console.log('✅ ÚSPECH:', response.status, response.text);
           alert('Rezervácia odoslaná!');
           e.target.reset();
+          // PRIDANÉ: Vyčistenie časových slotov po úspešnom odoslaní
+          document.getElementById('casove-sloty').innerHTML = '<p style="font-size: 0.9em; color: #666;">Najprv vyberte dátum.</p>';
         })
         .catch((error) => {
           console.error('❌ CHYBA:', error);
@@ -29,10 +39,13 @@
     }
   </script>
 </head>
+
 <body>
   <header>
     <h1> JANO Barber</h1>
     <p>Profesionálny strih a úprava brady</p>
+    <a href="admin.html" class="btn-admin">Admin</a>
+
   </header>
 
   <section>
@@ -44,9 +57,14 @@
       <label>E-mail:</label>
       <input type="email" name="email" required>
 
-      <label>Dátum a čas:</label>
-      <input type="datetime-local" name="date" required>
+      <label>Dátum:</label>
+      <input type="date" id="datum" name="datum" required>
 
+      <label>Čas:</label>
+      <div id="casove-sloty">
+        <p style="font-size: 0.9em; color: #666;">Najprv vyberte dátum.</p>
+      </div>
+      <input type="hidden" id="vybraty-cas" name="cas" required>
       <label>Služba:</label>
       <select name="service" required>
         <option value="">-- Vyber službu --</option>
@@ -61,5 +79,82 @@
       <button type="submit">Odoslať</button>
     </form>
   </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const dateInput = document.getElementById('datum');
+      const slotsContainer = document.getElementById('casove-sloty');
+      const hiddenTimeInput = document.getElementById('vybraty-cas');
+
+      // !!! DÔLEŽITÉ: SEM VLOŽTE ÚDAJE, KTORÉ STE ZÍSKALI Z GOOGLE !!!
+      const API_KEY = 'SEM_VLOŽTE_VÁŠ_API_KĽÚČ';
+      const CALENDAR_ID = 'https://calendar.google.com/calendar/embed?src=janci.barber%40gmail.com&ctz=Europe%2FPrague';
+
+      // Definovanie dostupných časov od 8:00 do 16:00
+      const DOSTUPNE_HODINY = [8, 9, 10, 11, 12, 13, 14, 15, 16];
+
+      async function fetchBookedSlots(selectedDate) {
+        const timeMin = new Date(selectedDate);
+        timeMin.setHours(0, 0, 0, 0);
+        const timeMax = new Date(selectedDate);
+        timeMax.setHours(23, 59, 59, 999);
+
+        const url = `https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events?key=${API_KEY}&timeMin=${timeMin.toISOString()}&timeMax=${timeMax.toISOString()}&singleEvents=true&orderBy=startTime`;
+
+        try {
+          const response = await fetch(url);
+          if (!response.ok) {
+            console.error('Chyba pri načítaní dát z Google Kalendára. Skontrolujte API kľúč a ID kalendára.');
+            return [];
+          }
+          const data = await response.json();
+          return data.items.map(event => new Date(event.start.dateTime || event.start.date));
+        } catch (error) {
+          console.error('Nastala chyba pri spojení s Google API:', error);
+          // V prípade chyby siete zobrazíme všetky sloty ako dostupné, aby web zostal funkčný
+          return [];
+        }
+      }
+
+      async function renderTimeSlots() {
+        const selectedDateStr = dateInput.value;
+        if (!selectedDateStr) return;
+
+        slotsContainer.innerHTML = '<p>Načítavam dostupné termíny...</p>';
+        const bookedTimes = await fetchBookedSlots(selectedDateStr);
+
+        slotsContainer.innerHTML = '';
+        hiddenTimeInput.value = '';
+
+        DOSTUPNE_HODINY.forEach(hour => {
+          const isBooked = bookedTimes.some(bookedTime => bookedTime.getHours() === hour);
+
+          const slotElement = document.createElement('div');
+          // Používame triedy, ktoré už máte definované vo vašom CSS (alebo si ich pridajte)
+          slotElement.classList.add('casovy-slot');
+          slotElement.innerText = `${hour}:00`;
+
+          if (isBooked) {
+            slotElement.classList.add('obsadeny');
+          } else {
+            slotElement.addEventListener('click', () => {
+              const currentSelected = document.querySelector('.casovy-slot.selected');
+              if (currentSelected) {
+                currentSelected.classList.remove('selected');
+              }
+              slotElement.classList.add('selected');
+              hiddenTimeInput.value = `${hour}:00`;
+            });
+          }
+          slotsContainer.appendChild(slotElement);
+        });
+      }
+
+      // Po zmene dátumu sa sloty prekreslia
+      dateInput.addEventListener('change', renderTimeSlots);
+    });
+  </script>
+
 </body>
+
 </html>
